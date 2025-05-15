@@ -1,0 +1,5 @@
+/app/Config/Database.php
+/app/Config/Email.php
+/app/Config/Encryption.php
+.env
+/writable/
