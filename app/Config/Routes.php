@@ -31,6 +31,7 @@ if (is_dir($dir)) {
 }
 
 foreach ($controller_dropdown as $controller) {
+    // echo "<pre>"; print_r($controller_dropdown); echo "</pre>";exit;
     $routes->get(strtolower($controller), "$controller::index");
     $routes->get(strtolower($controller) . '/(:any)', "$controller::$1");
     $routes->post(strtolower($controller) . '/(:any)', "$controller::$1");

@@ -17,7 +17,7 @@ class Dashboard extends Security_Controller {
         $view_data["dashboards"] = array();
 
         $dashboards = $this->Dashboards_model->get_details(array("user_id" => $this->login_user->id));
-
+        
         if ($dashboards) {
             $view_data["dashboards"] = $dashboards->getResult();
         }

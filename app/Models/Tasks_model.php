@@ -1088,4 +1088,20 @@ class Tasks_model extends Crud_model {
             return 1000; //could be any positive value
         }
     }
+
+    function get_tasks_by_project($project_id) {
+        $projects_table = $this->db->prefixTable('tasks');
+
+        $sql = "SELECT id, title
+        FROM $projects_table 
+        WHERE $projects_table.deleted=0 AND $projects_table.project_id=$project_id";
+        return $this->db->query($sql);
+
+        // return $this->db->select('id, title')
+        //                ->from('tasks')
+        //                ->where('project_id', $project_id)
+        //                ->order_by('name', 'ASC');
+    }
+
+    
 }
