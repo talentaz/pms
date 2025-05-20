@@ -109,6 +109,7 @@ class Crud_model extends Model {
     }
 
     function ci_save(&$data = array(), $id = 0) {
+        // print_r($data); exit;
         //allowed fields should be assigned
         $db_fields = $this->db->getFieldNames($this->table);
         foreach ($db_fields as $field) {

@@ -23,13 +23,13 @@
             <div class="row">
                 <label for="recurring" class="col-md-3">Assign Task</label>
                 <div class="col-md-9">
-                    <select id="project" name="project" class="form-control js_app_dropdown" required>
+                    <select id="project" name="project_id" class="form-control select2" required>
                         <option value="">-- Select Project --</option>
                         <?php foreach ($projects as $project): ?>
                             <option value="<?= $project->id ?>"><?= htmlspecialchars($project->title) ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <select id="task" name="task" class="form-control js_app_dropdown mt-3" disabled required>
+                    <select id="task" name="task_id" class="form-control select2 mt-3" disabled required>
                         <option value="">-- Select Project First --</option>
                     </select>
                 </div>
@@ -39,12 +39,19 @@
             <div data-repeater-list="outer-group" class="outer">
                 <div data-repeater-item class="row outer">
                     <div class="col-md-3">
-                        <label for="porblem">problem</label>
+                        <label for="porblem">Question 1</label>
                     </div>
                     <div class="col-md-9">
                         <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <select name="question_type" class="inner form-control question-type select2" required>
+                                    <option value="text_input">Text Input</option>
+                                    <option value="single_choice">Single checkbox</option>
+                                    <option value="multi_choice">Multiple Choice</option>
+                                </select>
+                            </div>
                             <div class="col-md-10 col-8">
-                                <input type="text" name="text-input" value="A" class="outer form-control" required/>
+                                <input type="text" name="question_title" value="A" class="outer form-control" required/>
                             </div>
                             <div class="col-md-2 col-4">
                                 <button data-repeater-delete class="btn btn-danger outer">
@@ -56,18 +63,7 @@
                             <div data-repeater-list="inner-group" class="inner">
                                 <div data-repeater-item class="inner row">
                                     <div class="col-md-10 col-8 mt-2">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <input type="text" name="inner-text-input" value="B" class="inner form-control" required/>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="" class="inner form-control" required>
-                                                    <option value="text_input">Text Input</option>
-                                                    <option value="single_choice">Single checkbox</option>
-                                                    <option value="multi_choice">Multiple Choice</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <input type="text" name="sub_question_title" value="B" class="inner form-control" required/>
                                     </div>
                                     <div class="col-md-2 col-4">
                                         <button data-repeater-delete class="btn btn-warning inner">
@@ -76,7 +72,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <input data-repeater-create type="button" value="Add Option" class="btn btn-success inner"/>
+                            <button data-repeater-create class="btn btn-success inner">
+                                Add Option
+                            </button>
                         </div>
                     </div>
                     <hr class="mt-2"/>
@@ -95,20 +93,49 @@
 
 <script>
      $(document).ready(function() {
-        $("#save-and-show-button").click(function() {
-            window.showAddNewModal = true;
-            $(this).trigger("submit");
+       
+        initializeDropdowns($("#dynamic-form .select2"));
+        $("#dynamic-form").appForm({
+            onSuccess: function(result) {
+                
+            },
+            onAjaxSuccess: function(result) {
+                
+            }
         });
 
-        $("#dynamic-form .js_app_dropdown").appDropdown();
+        function initializeDropdowns(selectElement) {
+            selectElement.select2();
+        }
+        // function initializeDropdowns() {
+        //     $("#dynamic-form .select2").select2();
+        // }
 
         // repeater js for task
         $('.outer-repeater').repeater({
             repeaters: [{
                 selector: '.inner-repeater',
-            }]
+            }],
+            show: function () {
+                $(this).slideDown();
+                 initializeDropdowns($(this).find(".select2"));
+            },
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
         });
 
+        $(document).on('change', '.question-type', function() {
+            var selectedValue = $(this).val();
+            var $innerRepeater = $(this).closest('.outer').find('.inner-repeater');
+
+            if (selectedValue === 'text_input') {
+                $innerRepeater.hide(); // Hide the inner repeater
+                $innerRepeater.find('input').val(''); // Clear inner inputs if needed
+            } else {
+                $innerRepeater.show(); // Show the inner repeater for other options
+            }
+        });
         // add project and task
         $('#project').change(function() {
             const projectId = $(this).val();
@@ -147,11 +174,8 @@
             }
         });
         
-        // Handle form submission
-        // $('#project-task-form').submit(function(e) {
-        //     e.preventDefault();
-        //     // Your form submission logic here
-        //     alert('Form submitted!');
+        // $('[data-repeater-item]').each(function() {
+        //     initializeDropdowns($(this));
         // });
      })
 </script>

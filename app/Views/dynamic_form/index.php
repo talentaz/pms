@@ -25,10 +25,10 @@
             source: '<?php echo_uri("dynamic_form/list_data/") ?>',
             order: [[1, "asc"]],
             columns: [
-                {title: 'id', "class": "w50 text-center all"},
-                {title: "name", "class": "w200 all"},
-                {title: "title", "class": "w15p"},
-              
+                {title: 'ID', "class": "w50 text-center all"},
+                {title: "TITLE", "class": "w200 all"},
+                {title: "PROJECT TITLE", "class": "w15p"},
+                {title: "TASK TITLE", "class": "w15p"},
                 {visible: visibleDelete, title: '<i data-feather="menu" class="icon-16"></i>', "class": "text-center option w100"}
             ],
 

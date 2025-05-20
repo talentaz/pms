@@ -293,6 +293,7 @@ class Expenses extends Security_Controller {
     private function _make_row($data, $custom_fields) {
 
         $description = $data->description;
+        print_r($description); exit;
         if ($data->linked_client_name) {
             if ($description) {
                 $description .= "<br />";

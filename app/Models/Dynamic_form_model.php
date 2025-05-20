@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Pages_model extends Crud_model {
+class Dynamic_form_model extends Crud_model {
 
     protected $table = null;
 
@@ -25,4 +25,5 @@ class Pages_model extends Crud_model {
         
         return $this->db->query($sql);
     }
+
 }

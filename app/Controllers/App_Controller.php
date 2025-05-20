@@ -87,6 +87,11 @@ class App_Controller extends Controller {
     public $Proposal_comments_model;
     public $Reminder_settings_model;
     public $Reminder_logs_model;
+    
+    // custom model 
+    public $Dynamic_form_model;
+    public $Questions_model;
+    public $Sub_questions_model;
 
     public function __construct() {
         //main template to make frame of this app
@@ -207,7 +212,11 @@ class App_Controller extends Controller {
             'Proposal_comments_model',
             'Event_tracker_model',
             'Reminder_settings_model',
-            'Reminder_logs_model'
+            'Reminder_logs_model',
+            // add custom model
+            'Dynamic_form_model',
+            'Questions_model',
+            'Sub_questions_model',
         );
     }
 
