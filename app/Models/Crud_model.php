@@ -109,7 +109,6 @@ class Crud_model extends Model {
     }
 
     function ci_save(&$data = array(), $id = 0) {
-        // print_r($data); exit;
         //allowed fields should be assigned
         $db_fields = $this->db->getFieldNames($this->table);
         foreach ($db_fields as $field) {
@@ -209,7 +208,7 @@ class Crud_model extends Model {
             return $success;
         } else {
             //insert
-
+            
             try {
                 $data_from_hook = app_hooks()->apply_filters("app_filter_data_before_insert", array(
                     "table" => $this->table,
@@ -219,7 +218,7 @@ class Crud_model extends Model {
 
                 // if there is no hook is triggering, we'll get the same sent data
                 $data = get_array_value($data_from_hook, "data");
-
+               
                 // the data could be modified from the hook or if it's undefined we have to assume that this data shouldn't be saved
                 if (!$data) {
                     return false;
@@ -229,7 +228,9 @@ class Crud_model extends Model {
             }
 
             if ($this->db_builder->insert($data)) {
+                
                 $insert_id = $this->db->insertID();
+                
                 if ($this->log_activity) {
                     //log this activity
                     $log_for_id = 0;
