@@ -92,6 +92,8 @@ class App_Controller extends Controller {
     public $Dynamic_form_model;
     public $Questions_model;
     public $Sub_questions_model;
+    public $Form_responses_model;
+    public $Form_answers_model;
 
     public function __construct() {
         //main template to make frame of this app
@@ -217,6 +219,8 @@ class App_Controller extends Controller {
             'Dynamic_form_model',
             'Questions_model',
             'Sub_questions_model',
+            'Form_responses_model',
+            'Form_answers_model',
         );
     }
 

@@ -13,9 +13,15 @@ $routes->get('/', 'Dashboard::index');
 //custom routing for custom pages
 //this route will move 'about/any-text' to 'domain.com/about/index/any-text'
 $routes->add('about/(:any)', 'About::index/$1');
+$routes->group('feedbacks', function($routes) {
+    $routes->get('/', 'Feedbacks::index');
+    $routes->post('save', 'Feedbacks::save');
+    $routes->get('view/(:num)', 'Feedbacks::view/$1');
+    $routes->get('(:any)', 'Feedbacks::index/$1'); // Catch-all
+});
 
 //add routing for controllers
-$excluded_controllers = array("About", "App_Controller", "Security_Controller");
+$excluded_controllers = array("About", "Feedbacks", "App_Controller", "Security_Controller");
 $controller_dropdown = array();
 $dir = "./app/Controllers/";
 if (is_dir($dir)) {
@@ -45,6 +51,7 @@ $routes->post("Plugins/(:any)", "Plugins::$1");
 $routes->get("Updates", "Updates::index");
 $routes->get("Updates/(:any)", "Updates::$1");
 $routes->post("Updates/(:any)", "Updates::$1");
+
 
 /*
  * --------------------------------------------------------------------
