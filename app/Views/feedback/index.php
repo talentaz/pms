@@ -21,7 +21,7 @@ include("style.php");
                             <input type="text" class="form-control" 
                                 name="question_<?php echo $question['id']; ?>" 
                                 required
-                                placeholder="<?php echo app_lang('type_your_answer'); ?>"/>
+                                placeholder="Type your answer"/>
                         
                         <?php elseif ($question['question_type'] === 'single_choice'): ?>
                             <?php foreach ($question['sub_questions'] as $sub_question): ?>

@@ -34,7 +34,9 @@ class Dynamic_form extends Security_Controller {
             $data->task_title,
 
        );
-       $row_data[] = modal_anchor(get_uri("dynamic_form/modal_form"), "<i data-feather='edit' class='icon-16'></i>", array("class" => "edit", "title" => app_lang('edit_feed_back'), "data-post-id" => $data->id))
+       $row_data[] = 
+              anchor(get_uri("feedbacks/" . $data->id), "<i data-feather='link' class='icon-16'></i>", array("target" => "_blank"))   
+            . modal_anchor(get_uri("dynamic_form/modal_form"), "<i data-feather='edit' class='icon-16'></i>", array("class" => "edit", "title" => app_lang('edit_feed_back'), "data-post-id" => $data->id))
             . js_anchor("<i data-feather='x' class='icon-16'></i>", array('title' => app_lang('delete_expense'), "class" => "delete", "data-id" => $data->id, "data-action-url" => get_uri("dynamic_form/delete"), "data-action" => "delete-confirmation"));
        return $row_data;
     }

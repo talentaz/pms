@@ -3,3 +3,4 @@
 /app/Config/Encryption.php
 .env
 /writable/
+/uploads/
