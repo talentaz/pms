@@ -168,8 +168,8 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-bs-dismiss="modal"><span data-feather="x" class="icon-16"></span> <?php echo app_lang('close'); ?></button>
-    <?php if(!$model_info['dynamic_form']->id): ?>
-    <button type="submit" class="btn btn-primary"><span data-feather="check-circle" class="icon-16"></span> <?php echo app_lang('save'); ?></button>
+    <?php if(isset($model_info['dynamic_form']) && is_object($model_info['dynamic_form']) && !$model_info['dynamic_form']->csv_file): ?>
+        <button type="submit" class="btn btn-primary"><span data-feather="check-circle" class="icon-16"></span> <?php echo app_lang('save'); ?></button>
     <?php endif;?>
 </div>
 <?php echo form_close(); ?>

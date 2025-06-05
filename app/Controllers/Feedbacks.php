@@ -2,14 +2,13 @@
 
 namespace App\Controllers;
 
-class Feedbacks extends Security_Controller {
+class Feedbacks extends App_Controller {
 
     function __construct() {
         parent::__construct();
     }
 
     function index($id) {
-        
         $view_data['topbar'] = "includes/public/topbar";
         $view_data['left_menu'] = false;
         $view_data['form'] = $this->Dynamic_form_model->get_detail_by_id($id)->getRow();
@@ -44,12 +43,6 @@ class Feedbacks extends Security_Controller {
         ];
         
         $dynamic_data = $this->Dynamic_form_model->get_detail_by_id($post_data['dynamic_form_id'])->getRow();
-        
-        // update csv file to dynamic form
-        if($dynamic_data->csv_file){
-            $dynamic_data->csv_file = 'feedback_'.$post_data['dynamic_form_id'].'.csv';
-            $this->Dynamic_form_model->ci_save($dynamic_data, $post_data['dynamic_form_id']);   
-        }
 
         // Process each question
         foreach ($post_data as $key => $value) {
@@ -105,6 +98,11 @@ class Feedbacks extends Security_Controller {
         
         // Generate CSV file
         $this->generate_csv($post_data['dynamic_form_id'], $headers, [$row_data]);
+        // update csv file to dynamic form
+        if(!$dynamic_data->csv_file){
+            $dynamic_data->csv_file = 'feedback_'.$post_data['dynamic_form_id'].'.csv';
+            $this->Dynamic_form_model->ci_save($dynamic_data, $post_data['dynamic_form_id']);   
+        }
         
         echo json_encode(array(
             "success" => true, 

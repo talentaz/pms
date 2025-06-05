@@ -19,6 +19,9 @@ $routes->group('feedbacks', function($routes) {
     $routes->get('view/(:num)', 'Feedbacks::view/$1');
     $routes->get('(:any)', 'Feedbacks::index/$1'); // Catch-all
 });
+// $routes->add('feedbacks/save', 'Feedbacks::save');
+// $routes->add('feedbacks/view/(:num)', 'Feedbacks::view/$1');
+// $routes->add('feedbacks/(:any)', 'Feedbacks::index/$1');
 
 //add routing for controllers
 $excluded_controllers = array("About", "Feedbacks", "App_Controller", "Security_Controller");
